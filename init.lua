@@ -380,6 +380,7 @@ require('lazy').setup({
 
       -- Useful for getting pretty icons, but requires a Nerd Font.
       { 'nvim-tree/nvim-web-devicons', enabled = vim.g.have_nerd_font },
+      'ahmedkhalf/project.nvim',
     },
     config = function()
       -- Telescope is a fuzzy finder that comes with a lot of different things that
@@ -423,6 +424,7 @@ require('lazy').setup({
       -- Enable Telescope extensions if they are installed
       pcall(require('telescope').load_extension, 'fzf')
       pcall(require('telescope').load_extension, 'ui-select')
+      pcall(require('telescope').load_extension, 'projects')
 
       -- See `:help telescope.builtin`
       local builtin = require 'telescope.builtin'
@@ -459,6 +461,11 @@ require('lazy').setup({
       vim.keymap.set('n', '<leader>sn', function()
         builtin.find_files { cwd = vim.fn.stdpath 'config' }
       end, { desc = '[S]earch [N]eovim files' })
+
+      -- Additional configuration for custom plugins
+      vim.keymap.set('n', '<leader>sp', function()
+        require('telescope').extensions.projects.projects {}
+      end, { desc = '[S]earch Recent [P]rojects' })
     end,
   },
 
