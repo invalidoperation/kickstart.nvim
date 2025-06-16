@@ -348,6 +348,11 @@ require('lazy').setup({
         { '<leader>t', group = '[T]oggle' },
         { '<leader>h', group = 'Git [H]unk', mode = { 'n', 'v' } },
       },
+      -- Additionally enable which-key for 's' binding (mini.surround)
+      triggers = {
+        { '<auto>', mode = 'nixsotc' },
+        { 's', mode = { 'n', 'x' } },
+      },
     },
   },
 
@@ -935,6 +940,9 @@ require('lazy').setup({
       -- - sd'   - [S]urround [D]elete [']quotes
       -- - sr)'  - [S]urround [R]eplace [)] [']
       require('mini.surround').setup()
+
+      -- Disable default keymap for s due to conflict with mini.surround
+      vim.keymap.set({ 'n', 'x' }, 's', '<Nop>')
 
       -- Simple and easy statusline.
       --  You could remove this setup call if you don't like it,
