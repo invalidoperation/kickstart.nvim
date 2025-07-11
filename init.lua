@@ -423,7 +423,7 @@ require('lazy').setup({
         --     i = { ['<c-enter>'] = 'to_fuzzy_refine' },
         --   },
         -- },
-        -- pickers = {}
+        pickers = {},
         extensions = {
           ['ui-select'] = {
             require('telescope.themes').get_dropdown(),
@@ -700,6 +700,7 @@ require('lazy').setup({
         vue_ls = {},
         graphql = {},
         rust_analyzer = {},
+        powershell_es = {},
         -- clangd = {},
         -- gopls = {},
         -- pyright = {},
