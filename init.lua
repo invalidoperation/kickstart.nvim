@@ -391,8 +391,37 @@ require('lazy').setup({
       -- Useful for getting pretty icons, but requires a Nerd Font.
       { 'nvim-tree/nvim-web-devicons', enabled = vim.g.have_nerd_font },
       'ahmedkhalf/project.nvim',
+      'nvim-telescope/telescope-file-browser.nvim',
     },
     config = function()
+      local ts_select_dir_for_grep = function(prompt_bufnr)
+        local action_state = require 'telescope.actions.state'
+        local fb = require('telescope').extensions.file_browser
+        local live_grep = require('telescope.builtin').live_grep
+        local current_line = action_state.get_current_line()
+
+        fb.file_browser {
+          files = false,
+          depth = false,
+          attach_mappings = function(prompt_bufnr)
+            require('telescope.actions').select_default:replace(function()
+              local entry_path = action_state.get_selected_entry().Path
+              local dir = entry_path:is_dir() and entry_path or entry_path:parent()
+              local relative = dir:make_relative(vim.fn.getcwd())
+              local absolute = dir:absolute()
+
+              live_grep {
+                results_title = relative .. '/',
+                cwd = absolute,
+                default_text = current_line,
+              }
+            end)
+
+            return true
+          end,
+        }
+      end
+
       -- Telescope is a fuzzy finder that comes with a lot of different things that
       -- it can fuzzy find! It's more than just a "file finder", it can search
       -- many different aspects of Neovim, your workspace, LSP, and more!
@@ -423,7 +452,18 @@ require('lazy').setup({
         --     i = { ['<c-enter>'] = 'to_fuzzy_refine' },
         --   },
         -- },
-        pickers = {},
+        pickers = {
+          live_grep = {
+            mappings = {
+              i = {
+                ['<C-f>'] = ts_select_dir_for_grep,
+              },
+              n = {
+                ['<C-f>'] = ts_select_dir_for_grep,
+              },
+            },
+          },
+        },
         extensions = {
           ['ui-select'] = {
             require('telescope.themes').get_dropdown(),
