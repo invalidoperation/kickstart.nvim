@@ -699,8 +699,21 @@ require('lazy').setup({
             [vim.diagnostic.severity.HINT] = '󰌶 ',
           },
         } or {},
-        virtual_lines = {},
+        virtual_lines = false,
+        virtual_text = true,
       }
+
+      vim.keymap.set('n', '<leader>k', function()
+        vim.diagnostic.config { virtual_lines = { current_line = true }, virtual_text = false }
+
+        vim.api.nvim_create_autocmd('CursorMoved', {
+          group = vim.api.nvim_create_augroup('line-diagnostics', { clear = true }),
+          callback = function()
+            vim.diagnostic.config { virtual_lines = false, virtual_text = true }
+            return true
+          end,
+        })
+      end, { desc = '[k] Expand current line diagnostics' })
 
       -- LSP servers and clients are able to communicate to each other what features they support.
       --  By default, Neovim doesn't support everything that is in the LSP specification.
