@@ -753,7 +753,9 @@ require('lazy').setup({
           },
         },
         vue_ls = {},
-        graphql = {},
+        graphql = {
+          filetypes = { 'graphql', 'typescript', 'javascript', 'typescriptreact', 'javascriptreact', 'vue' },
+        },
         rust_analyzer = {},
         powershell_es = {},
         -- clangd = {},
