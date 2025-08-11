@@ -644,6 +644,16 @@ require('lazy').setup({
           --  the definition of its *type*, not where it was *defined*.
           map('grt', require('telescope.builtin').lsp_type_definitions, '[G]oto [T]ype Definition')
 
+          local client = vim.lsp.get_client_by_id(event.data.client_id)
+
+          -- setup compiler config for omnisharp
+          if client and client.name == 'omnisharp' then
+            map('grd', require('omnisharp_extended').telescope_lsp_definition, '[G]oto [D]efinition')
+            map('grr', require('omnisharp_extended').telescope_lsp_references, '[G]oto [R]eferences')
+            map('gri', require('omnisharp_extended').telescope_lsp_implementation, '[G]oto [I]mplementation')
+            map('grt', require('omnisharp_extended').telescope_lsp_type_definition, 'Type [D]efinition')
+          end
+
           -- This function resolves a difference between neovim nightly (version 0.11) and stable (version 0.10)
           ---@param client vim.lsp.Client
           ---@param method vim.lsp.protocol.Method
@@ -662,7 +672,6 @@ require('lazy').setup({
           --    See `:help CursorHold` for information about when this is executed
           --
           -- When you move your cursor, the highlights will be cleared (the second autocommand).
-          local client = vim.lsp.get_client_by_id(event.data.client_id)
           if client and client_supports_method(client, vim.lsp.protocol.Methods.textDocument_documentHighlight, event.buf) then
             local highlight_augroup = vim.api.nvim_create_augroup('kickstart-lsp-highlight', { clear = false })
             vim.api.nvim_create_autocmd({ 'CursorHold', 'CursorHoldI' }, {
@@ -746,12 +755,6 @@ require('lazy').setup({
 
       local servers = {
         omnisharp = {
-          handlers = {
-            ['textDocument/definition'] = require('omnisharp_extended').definition_handler,
-            ['textDocument/typeDefinition'] = require('omnisharp_extended').type_definition_handler,
-            ['textDocument/references'] = require('omnisharp_extended').references_handler,
-            ['textDocument/implementation'] = require('omnisharp_extended').implementation_handler,
-          },
           enable_roslyn_analyzers = true,
           organize_imports_on_format = true,
           enable_import_completion = true,
