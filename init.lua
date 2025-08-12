@@ -996,10 +996,17 @@ require('lazy').setup({
       },
 
       sources = {
-        default = { 'lsp', 'path', 'snippets', 'lazydev' },
+        default = { 'lsp', 'easy-dotnet', 'path', 'snippets', 'lazydev' },
         providers = {
           lazydev = { module = 'lazydev.integrations.blink', score_offset = 100 },
           snippets = { min_keyword_length = 2 },
+          ['easy-dotnet'] = {
+            name = 'easy-dotnet',
+            enabled = true,
+            module = 'easy-dotnet.completion.blink',
+            score_offset = 10000,
+            async = true,
+          },
         },
       },
 
