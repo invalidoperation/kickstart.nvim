@@ -784,6 +784,10 @@ require('lazy').setup({
         },
         rust_analyzer = {},
         powershell_es = {},
+        emmet_language_server = {
+          filetypes = { 'css', 'eruby', 'html', 'javascript', 'javascriptreact', 'less', 'sass', 'scss', 'pug', 'typescriptreact', 'vue' },
+          root_markers = { 'tsconfig.json', 'jsconfig.json', 'package.json', '.git' },
+        },
         -- clangd = {},
         -- gopls = {},
         -- pyright = {},
