@@ -97,11 +97,10 @@ return { -- Fuzzy Finder (files, lsp, etc)
       defaults = {
         mappings = {
           n = {
-            ['<c-d>'] = require('telescope.actions').delete_buffer,
+            ['d'] = require('telescope.actions').delete_buffer,
           },
           i = {
             ['<C-h>'] = 'which_key',
-            ['<c-d>'] = require('telescope.actions').delete_buffer,
           },
         },
       },
