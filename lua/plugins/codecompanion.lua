@@ -4,6 +4,7 @@ return {
     'nvim-lua/plenary.nvim',
     'ravitemer/mcphub.nvim',
   },
+  lazy = false,
   opts = {
     ---@module "codecompanion"
     ---@type CodeCompanion.Config
@@ -31,6 +32,15 @@ return {
           make_slash_commands = true, -- Add MCP prompts as /slash commands
         },
       },
+    },
+  },
+  keys = {
+    {
+      '<leader>c',
+      function()
+        require('codecompanion').toggle()
+      end,
+      desc = 'Toggle CodeCompanion Chat',
     },
   },
 }
