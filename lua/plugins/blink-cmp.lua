@@ -98,6 +98,9 @@ return { -- Autocompletion
 
     sources = {
       default = { 'lsp', 'easy-dotnet', 'path', 'snippets', 'lazydev' },
+      per_filetype = {
+        codecompanion = { 'codecompanion' },
+      },
       providers = {
         lazydev = { module = 'lazydev.integrations.blink', score_offset = 100 },
         snippets = { min_keyword_length = 2 },
