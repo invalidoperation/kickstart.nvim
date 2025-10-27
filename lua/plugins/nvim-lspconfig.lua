@@ -245,6 +245,12 @@ return {
         filetypes = { 'css', 'eruby', 'html', 'javascript', 'javascriptreact', 'less', 'sass', 'scss', 'pug', 'typescriptreact', 'vue' },
         root_markers = { 'tsconfig.json', 'jsconfig.json', 'package.json', '.git' },
       },
+      helm_ls = {
+        yamlls = {
+          path = vim.fn.expand '$MASON/bin/yaml-language-server',
+        },
+      },
+      yamlls = {},
       -- clangd = {},
       -- gopls = {},
       -- pyright = {},
