@@ -92,6 +92,14 @@ return { -- Fuzzy Finder (files, lsp, etc)
               ['<C-f>'] = ts_select_dir_for_grep,
             },
           },
+          file_ignore_patterns = { 'node_modules/', '.git/', '.venv/', 'node_modules\\', '.git\\', '.venv\\' },
+          additional_args = function(_)
+            return { '--hidden' }
+          end,
+        },
+        find_files = {
+          file_ignore_patterns = { 'node_modules/', '.git/', '.venv/', 'node_modules\\', '.git\\', '.venv\\' },
+          hidden = true,
         },
       },
       defaults = {
