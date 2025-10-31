@@ -251,6 +251,7 @@ return {
         },
       },
       yamlls = {},
+      docker_language_server = {},
       -- clangd = {},
       -- gopls = {},
       -- pyright = {},
