@@ -1,15 +1,19 @@
-return { -- Highlight, edit, and navigate code
+return {
   'nvim-treesitter/nvim-treesitter',
+  lazy = false,
+  branch = 'main',
   build = ':TSUpdate',
-  main = 'nvim-treesitter.configs', -- Sets main module to use for opts
-  -- [[ Configure Treesitter ]] See `:help nvim-treesitter`
   opts = {
     ensure_installed = {
       'bash',
       'c',
+      'c_sharp',
       'css',
       'diff',
+      'helm',
       'html',
+      'javascript',
+      'json',
       'lua',
       'luadoc',
       'markdown',
@@ -17,34 +21,31 @@ return { -- Highlight, edit, and navigate code
       'query',
       'scss',
       'typescript',
+      'tsx',
       'vim',
       'vimdoc',
       'vue',
+      'yaml',
     },
-    -- Autoinstall languages that are not installed
     auto_install = true,
-    highlight = {
-      enable = true,
-      -- Some languages depend on vim's regex highlighting system (such as Ruby) for indent rules.
-      --  If you are experiencing weird indenting issues, add the language to
-      --  the list of additional_vim_regex_highlighting and disabled languages for indent.
-      additional_vim_regex_highlighting = { 'ruby' },
-    },
-    indent = { enable = true, disable = { 'ruby' } },
-    incremental_selection = {
-      enable = true,
-      keymaps = {
-        init_selection = '<C-space>',
-        node_incremental = '<C-space>',
-        scope_incremental = false,
-        node_decremental = '<bs>',
-      },
-    },
   },
-  -- There are additional nvim-treesitter modules that you can use to interact
-  -- with nvim-treesitter. You should go explore a few and see what interests you:
-  --
-  --    - Incremental selection: Included, see `:help nvim-treesitter-incremental-selection-mod`
-  --    - Show your current context: https://github.com/nvim-treesitter/nvim-treesitter-context
-  --    - Treesitter + textobjects: https://github.com/nvim-treesitter/nvim-treesitter-textobjects
+  config = function(_, opts)
+    require('nvim-treesitter').install(opts.ensure_installed)
+
+    vim.api.nvim_create_autocmd('FileType', {
+      pattern = '*',
+      callback = function(ev)
+        local max_filesize = 100 * 1024 -- 100 KB
+        local ok, stats = pcall(vim.uv.fs_stat, vim.fs.normalize(ev.file))
+        if ok and stats and stats.size < max_filesize then
+          pcall(vim.treesitter.start, ev.buf)
+          vim.bo[ev.buf].syntax = 'on' -- Use regex based syntax-highlighting as fallback as some plugins might need it
+          vim.wo.foldlevel = 99
+          vim.wo.foldmethod = 'expr'
+          vim.wo.foldexpr = 'v:lua.vim.treesitter.foldexpr()' -- Use treesitter for folds
+          vim.bo[ev.buf].indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()" -- Use treesitter for indentation
+        end
+      end,
+    })
+  end,
 }
