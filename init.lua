@@ -126,6 +126,11 @@ vim.keymap.set('n', '<down>', '<cmd>echo "Use j to move!!"<CR>')
 -- vim.keymap.set("n", "<C-S-j>", "<C-w>J", { desc = "Move window to the lower" })
 -- vim.keymap.set("n", "<C-S-k>", "<C-w>K", { desc = "Move window to the upper" })
 
+-- Remap q to Q and Q to <M-q>, to prevent accidental triggering of macro mode
+vim.keymap.set('n', 'q', '<nop>', { noremap = true })
+vim.keymap.set('n', 'Q', 'q', { noremap = true, desc = 'Record macro' })
+vim.keymap.set('n', '<M-q>', 'Q', { noremap = true, desc = 'Replay last register' })
+
 -- [[ Basic Autocommands ]]
 --  See `:help lua-guide-autocommands`
 
