@@ -86,6 +86,8 @@ vim.o.scrolloff = 10
 vim.o.confirm = true
 
 vim.opt.termguicolors = true
+vim.o.winblend = 30
+vim.o.pumblend = 30
 
 -- [[ Basic Keymaps ]]
 --  See `:help vim.keymap.set()`
