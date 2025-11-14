@@ -10,6 +10,7 @@ return {
       'c_sharp',
       'css',
       'diff',
+      'graphql',
       'helm',
       'html',
       'javascript',
