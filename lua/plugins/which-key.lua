@@ -52,7 +52,6 @@ return { -- Useful plugin to show you pending keybinds.
     -- Additionally enable which-key for 's' binding (mini.surround)
     triggers = {
       { '<auto>', mode = 'nixsotc' },
-      { 's', mode = { 'n', 'x' } },
     },
   },
 }
