@@ -5,6 +5,8 @@ return {
       show_hidden = true,
       ignore_lsp = {
         'easy_dotnet', -- causes issues due to root directory containing trailing '/' (at least on windows)
+        'docker_language_server',
+        'helm_ls',
       },
     }
   end,
