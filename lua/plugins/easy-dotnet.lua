@@ -12,7 +12,9 @@ return {
         config = {},
       },
       debugger = {
-        bin_path = 'netcoredbg',
+        -- TODO: This probably won't work on unix systems, due to .cmd ending. Without .cmd, it doesn't work on Windows
+        -- Should verify this and then make some windows/linux/mac specific config for bin_path
+        bin_path = vim.fs.joinpath(vim.fn.stdpath 'data', 'mason/bin/netcoredbg.cmd'),
         auto_register_dap = true,
         mappings = {
           open_variable_viewer = { lhs = 'T', desc = 'open variable viewer' },
