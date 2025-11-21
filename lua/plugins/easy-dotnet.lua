@@ -1,6 +1,7 @@
 return {
   'GustavEikaas/easy-dotnet.nvim',
   dependencies = { 'nvim-lua/plenary.nvim', 'nvim-telescope/telescope.nvim' },
+  ft = { 'cs', 'csproj', 'sln', 'slnx' },
   config = function()
     local dotnet = require 'easy-dotnet'
     -- Options are not required

@@ -7,13 +7,21 @@ return {
       a = { fg = '#121715', bg = '#4bc997' },
     }
 
-    local job_indicator = { require('easy-dotnet.ui-modules.jobs').lualine }
+    local easy_dotnet = {
+      sections = { lualine_a = {
+        'mode',
+        function()
+          return require('easy-dotnet.ui-modules.jobs').lualine()
+        end,
+      } },
+      filetypes = { 'cs', 'csproj', 'sln', 'slnx' },
+    }
 
     require('lualine').setup {
       options = { theme = theme },
-      extensions = { 'neo-tree', 'toggleterm', 'nvim-dap-ui' },
+      extensions = { 'neo-tree', 'toggleterm', 'nvim-dap-ui', easy_dotnet },
       sections = {
-        lualine_a = { 'mode', job_indicator },
+        lualine_a = { 'mode' },
         lualine_x = { 'copilot', 'encoding', 'fileformat', 'filetype' },
       },
     }
