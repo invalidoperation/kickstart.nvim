@@ -64,7 +64,7 @@ vim.o.splitbelow = true
 --   See `:help lua-options`
 --   and `:help lua-options-guide`
 vim.o.list = true
-vim.opt.listchars = { tab = '» ', trail = '·', nbsp = '␣', precedes = '<', extends = '>' }
+vim.opt.listchars = { tab = '» ', trail = '·', nbsp = '␣', precedes = '◀', extends = '▶' }
 
 -- Expand tabs as spaces
 vim.opt.expandtab = true
