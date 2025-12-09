@@ -71,6 +71,9 @@ vim.opt.expandtab = true
 vim.opt.shiftwidth = 2
 vim.opt.tabstop = 2
 
+-- Disable text-wrap
+vim.opt.wrap = false
+
 -- Preview substitutions live, as you type!
 vim.o.inccommand = 'split'
 
