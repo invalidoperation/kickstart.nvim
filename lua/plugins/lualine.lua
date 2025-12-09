@@ -8,12 +8,15 @@ return {
     }
 
     local easy_dotnet = {
-      sections = { lualine_a = {
-        'mode',
-        function()
-          return require('easy-dotnet.ui-modules.jobs').lualine()
-        end,
-      } },
+      sections = {
+        lualine_a = {
+          'mode',
+          function()
+            return require('easy-dotnet.ui-modules.jobs').lualine()
+          end,
+        },
+        lualine_x = { 'copilot', 'encoding', 'fileformat', 'filetype' },
+      },
       filetypes = { 'cs', 'csproj', 'sln', 'slnx' },
     }
 
