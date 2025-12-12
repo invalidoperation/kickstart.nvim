@@ -50,5 +50,7 @@ return {
         end
       end,
     })
+
+    vim.filetype.add { extension = { esproj = 'xml' } }
   end,
 }
