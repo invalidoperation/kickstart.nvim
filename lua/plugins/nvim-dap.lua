@@ -15,7 +15,6 @@ return {
 
     -- Add your own debuggers here
     'leoluz/nvim-dap-go',
-    'GustavEikaas/easy-dotnet.nvim',
   },
   keys = {
     -- Basic debugging keymaps, feel free to change to your liking!
@@ -139,8 +138,5 @@ return {
         detached = vim.fn.has 'win32' == 0,
       },
     }
-
-    -- .NET specific setup using `easy-dotnet`
-    require('easy-dotnet.netcoredbg').register_dap_variables_viewer() -- special variables viewer specific for .NET
   end,
 }

@@ -10,12 +10,21 @@ return {
         enabled = true,
         roslynator_enabled = true,
         analyzer_assemblies = {},
-        config = {},
+        config = {
+          settings = {
+            ['csharp|background_analysis'] = {
+              dotnet_compiler_diagnostics_scope = 'fullSolution',
+            },
+            ['csharp|inlay_hints'] = {
+              csharp_enable_inlay_hints_for_implicit_object_creation = true,
+            },
+            ['csharp|code_lens'] = {
+              dotnet_enable_references_code_lens = true,
+            },
+          },
+        },
       },
       debugger = {
-        -- TODO: This probably won't work on unix systems, due to .cmd ending. Without .cmd, it doesn't work on Windows
-        -- Should verify this and then make some windows/linux/mac specific config for bin_path
-        bin_path = vim.fs.joinpath(vim.fn.stdpath 'data', 'mason/bin/netcoredbg.cmd'),
         auto_register_dap = true,
         mappings = {
           open_variable_viewer = { lhs = 'T', desc = 'open variable viewer' },

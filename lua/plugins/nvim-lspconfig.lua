@@ -138,6 +138,14 @@ return {
             callback = vim.lsp.buf.clear_references,
           })
 
+          vim.api.nvim_create_autocmd({ 'BufEnter', 'InsertLeave' }, {
+            buffer = event.buf,
+            group = vim.api.nvim_create_augroup('codelens-lsp-refresh', { clear = true }),
+            callback = function(event2)
+              vim.lsp.codelens.refresh { bufnr = event2.buf }
+            end,
+          })
+
           vim.api.nvim_create_autocmd('LspDetach', {
             group = vim.api.nvim_create_augroup('kickstart-lsp-detach', { clear = true }),
             callback = function(event2)
@@ -285,7 +293,6 @@ return {
     local ensure_installed = vim.tbl_keys(servers or {})
     vim.list_extend(ensure_installed, {
       'stylua', -- Used to format Lua code
-      'netcoredbg',
     })
 
     require('mason-tool-installer').setup { ensure_installed = ensure_installed }
